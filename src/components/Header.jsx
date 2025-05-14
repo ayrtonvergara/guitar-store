@@ -64,7 +64,7 @@ function Header({carrito}) {
                                                     className="btn btn-danger"
                                                     type="button"
                                                 >
-                                                    X
+                                                     X
                                                 </button>
                                             </td>
                                         </tr>
