@@ -1,6 +1,3 @@
-
-//import { useEffect, useState } from "react"
-//import { useState } from "react"
 import { useEffect, useState } from "react"
 import Guitarra from "./components/Guitarra"
 import Header from "./components/Header"
@@ -29,18 +26,24 @@ function App() {
     }
     
   }
-  
+
+  function deleteFromCart(idAEliminar){
+    const updatedCarrito = carrito.filter(guitarra => guitarra.id !== idAEliminar);
+    setCarrito(updatedCarrito);
+  }
+
   useEffect(() => {
- 
+
     setData(data) 
   }, [data])
-  
-    
+
 
   return (
     <>
        <Header
        carrito={carrito}
+
+        deleteFromCart={deleteFromCart}
        
        />
 

@@ -1,10 +1,17 @@
+import {useMemo} from 'react';
 
-function Header({carrito}) {
-    //state derivado
-    const isEmpty = carrito.length === 0;
-    const TotalCarrito = carrito.reduce((total,guitarra) => total + (guitarra.quantity * guitarra.price), 0);
-    console.log(TotalCarrito);
+function Header({carrito,deleteFromCart}) {
+        
+    //useMemo es un hook de React que memoriza el resultado de una función para evitar cálculos innecesarios en cada renderizado.
+    //El hook useMemo toma dos argumentos: una función que calcula un valor y un array de dependencias.
+    //En este caso, se usa para determinar si el carrito está vacío y para calcular el total del carrito.       
     
+    const isEmpty = useMemo(() => carrito.length === 0, [carrito]); 
+
+    const TotalCarrito = useMemo(() => carrito.reduce((total,guitarra) => total + (guitarra.quantity * guitarra.price),0),[carrito]);//calcula el total del carrito multiplicando la cantidad por el precio de cada guitarra y sumando los totales
+
+
+
     return (
 
         <header className="py-5 header">
@@ -66,6 +73,8 @@ function Header({carrito}) {
                                                 <button
                                                     className="btn btn-danger"
                                                     type="button"
+                                                    onClick={() =>deleteFromCart(guitarra.id)}
+                                                    
                                                 >
                                                      X
                                                 </button>
