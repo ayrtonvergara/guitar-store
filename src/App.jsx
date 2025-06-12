@@ -9,16 +9,17 @@ function App() {
 
   const [data, setData] = useState(db)
   const [carrito,setCarrito] = useState([]) 
-  
+  const maxItems = 10;
+  const minItems = 1;
 
   function addToCart (item) {
-
     const itemExist = carrito.findIndex(guitarra => guitarra.id === item.id)
     console.log(itemExist)
     if(itemExist >= 0) { // existe en el carrito
-      const updatedCarrito = [...carrito]; 
+      if(carrito[itemExist].quantity >= maxItems) return
+      const updatedCarrito = [...carrito];
       updatedCarrito[itemExist].quantity += 1;
-      setCarrito(updatedCarrito); 
+      setCarrito(updatedCarrito);
     }else{
       item.quantity = 1;
       console.log('no existe en el carrito') //no existe en el carrito
@@ -27,10 +28,35 @@ function App() {
     
   }
 
-  function deleteFromCart(idAEliminar){
-    const updatedCarrito = carrito.filter(guitarra => guitarra.id !== idAEliminar);
+  function deleteFromCart(idEliminar){
+    const updatedCarrito = carrito.filter(guitarra => guitarra.id !== idEliminar);
     setCarrito(updatedCarrito);
   }
+
+  function increaseQuantity(idIncrementar) {
+     const updatedCarrito = carrito.map(items => {
+      if(items.id === idIncrementar && items.quantity < maxItems) {
+        return {...items, quantity: items.quantity + 1}
+      }
+      return items;
+     })  
+     setCarrito(updatedCarrito);
+  }
+
+  function decreaseQuantity(idDecrementar) {
+    const updatedCarrito = carrito.map(items => {
+      if(items.id === idDecrementar && items.quantity > minItems) {
+        return {...items, quantity: items.quantity - 1}
+      }
+      return items;
+     })  
+     setCarrito(updatedCarrito);   
+
+  }
+  function clearCart() {
+    setCarrito([]);
+  }
+
 
   useEffect(() => {
 
@@ -42,9 +68,10 @@ function App() {
     <>
        <Header
        carrito={carrito}
-
-        deleteFromCart={deleteFromCart}
-       
+       deleteFromCart={deleteFromCart}
+       increaseQuantity={increaseQuantity}
+       decreaseQuantity={decreaseQuantity}
+       clearCart={clearCart}
        />
 
 

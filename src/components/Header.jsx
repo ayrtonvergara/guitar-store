@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 
-function Header({carrito,deleteFromCart}) {
+function Header({carrito,deleteFromCart, increaseQuantity, decreaseQuantity, clearCart}) {
         
     //useMemo es un hook de React que memoriza el resultado de una función para evitar cálculos innecesarios en cada renderizado.
     //El hook useMemo toma dos argumentos: una función que calcula un valor y un array de dependencias.
@@ -57,6 +57,7 @@ function Header({carrito,deleteFromCart}) {
                                                 <button
                                                     type="button"
                                                     className="btn btn-dark"
+                                                    onClick={() => decreaseQuantity(guitarra.id)}
                                                 >
                                                     -
                                                 </button>
@@ -64,6 +65,7 @@ function Header({carrito,deleteFromCart}) {
                                                 <button
                                                     type="button"
                                                     className="btn btn-dark"
+                                                    onClick={() =>increaseQuantity(guitarra.id)}
                                                 >
                                                     +
                                                 </button>
@@ -88,7 +90,9 @@ function Header({carrito,deleteFromCart}) {
                             </>
                              )}
                             
-                            <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                            <button className="btn btn-dark w-100 mt-3 p-2"
+                            onClick={clearCart}
+                            >Vaciar Carrito</button>
                         </div>
                     </div>
                 </nav>
