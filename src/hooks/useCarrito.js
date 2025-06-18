@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {useMemo} from 'react';
 
 function useCarrito() {
     
@@ -63,6 +64,10 @@ function useCarrito() {
     setCarrito([]);
   }
 
+  const isEmpty = useMemo(() => carrito.length === 0, [carrito]); 
+
+    const totalCarrito = useMemo(() => carrito.reduce((total,guitarra) => total + (guitarra.quantity * guitarra.price),0),[carrito]);//calcula el total del carrito multiplicando la cantidad por el precio de cada guitarra y sumando los totales
+
 
   return {
     carrito,
@@ -70,7 +75,10 @@ function useCarrito() {
     deleteFromCart,
     increaseQuantity,
     decreaseQuantity,
-    clearCart
+    clearCart,
+    isEmpty,
+    totalCarrito,
+
   };
 }
 

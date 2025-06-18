@@ -16,7 +16,10 @@ function App() {
       deleteFromCart,
       increaseQuantity,
       decreaseQuantity,
-      clearCart
+      clearCart,
+      isEmpty,
+      totalCarrito,
+      
     } = useCarrito();
 
 
@@ -28,6 +31,8 @@ function App() {
        increaseQuantity={increaseQuantity}
        decreaseQuantity={decreaseQuantity}
        clearCart={clearCart}
+       isEmpty={isEmpty}
+       totalCarrito={totalCarrito}
        />
 
 
@@ -44,8 +49,6 @@ function App() {
            
         )
         )}
-
-      
            
 
         </div>   
